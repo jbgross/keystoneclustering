@@ -1,0 +1,5 @@
+bin\Debug\kmeanTest2D.exe
+bin\Debug\kmeanTest2D.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\kmeanTest2D.exe
+obj\Debug\kmeanTest2D.pdb
