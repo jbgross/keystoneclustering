@@ -12,8 +12,20 @@ namespace kmeans_test_jbg.Dimensions
     /// </summary>
     public class Space
     {
-        private List<Dimension> dimensions = new List<Dimension>();
+        public Space(int clusters)
+        {
+            Clusters = clusters;
+        }
+        
+        int clusters;
 
+        public int Clusters
+        {
+            get { return clusters; }
+            private set { clusters = value; }
+        }
+
+        private List<Dimension> dimensions = new List<Dimension>();
 
         public void AddDimension(Dimension dim)
         {
@@ -25,13 +37,20 @@ namespace kmeans_test_jbg.Dimensions
         /// each dimension to create a random Centroid
         /// </summary>
         /// <returns></returns>
-        public Hashtable<Dimension, DataElement> GetRandomCentroids()
+        public Centroid [] GetRandomCentroids()
         {
-            Hashtable<Dimension, DataElement> dim_els = new Hashtable<Dimension, DataElement>();
-            foreach (Dimension dim in this.dimensions)
+            Centroid[] centroids = new Centroid[this.clusters];
+            int count = 0;
+            for (int cents = 0; cents < this.clusters; cents++)
             {
-                dim_els[dim] = dim.Plane.GetRandomDataElement();
+                Centroid c = new Centroid();
+                foreach (Dimension dim in this.dimensions)
+                {
+                    c.AddElement(dim, dim.Plane.GetRandomDataElement());
+                }
+                centroids[count++] = c;
             }
+            return centroids;
         }
     }
 }
