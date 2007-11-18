@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using kmeans_test_jbg.Data;
@@ -18,7 +19,7 @@ namespace kmeans_test_jbg.Dimensions
             get { return centroid; }
             private set { centroid = value; }
         }
-        private Hashtable<DataElement, float> elements = new Hashtable<DataElement, float>();
+        private Hashtable elements = new Hashtable();
 
         public Cluster()
         {
