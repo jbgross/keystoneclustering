@@ -26,5 +26,14 @@ namespace kmeans_test_jbg.Data
             private set { data = value; }
         }
 
+        /// <summary>
+        /// Return the data element, in this case a string
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return Data;
+        }
+
     }
 }

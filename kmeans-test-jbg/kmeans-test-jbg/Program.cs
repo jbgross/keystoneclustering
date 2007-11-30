@@ -10,8 +10,11 @@ namespace kmeans_test_jbg
     {
         static void Main(string[] args)
         {
-            Dimension d1 = new Dimension("message1", new DataType(), new InvertedBooleanPlane());
-            d1.AddElement(new StringData("jbg172"));
+            //List<DataElement> names = new List<DataElement>();
+            //Dimension d1 = new Dimension("message1", new DataType(), new InvertedBooleanPlane());
+            ArtificialDimensions ad = new ArtificialDimensions();
+            ad.Space.GetRandomCentroids();
+            Console.ReadLine();
         }
     }
 }

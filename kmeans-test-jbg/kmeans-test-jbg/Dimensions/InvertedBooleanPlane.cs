@@ -37,7 +37,7 @@ namespace kmeans_test_jbg.Dimensions
 
         public override DataElement GetRandomDataElement()
         {
-            return rand.Next(0, 2);
+            return new IntegerData(rand.Next(0, 2));
         }
 
     }
