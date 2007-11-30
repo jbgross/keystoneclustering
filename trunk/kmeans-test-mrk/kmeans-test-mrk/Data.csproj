@@ -35,6 +35,52 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\Cluster.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Algorithms\ClusteringAlgorithm.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Algorithms\KMeans.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\DataElement.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\EmailAddressElement.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\FloatElement.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\IntegerElement.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\NameElement.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\ScalarElement.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\StringElement.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Dimensions\Centroid.cs" />
+    <Compile Include="Dimensions\DataType.cs" />
+    <Compile Include="Dimensions\Dimension.cs" />
+    <Compile Include="Dimensions\DiscretePlane.cs" />
+    <Compile Include="Dimensions\EmailAddressData.cs" />
+    <Compile Include="Dimensions\FloatData.cs" />
+    <Compile Include="Dimensions\IntegerData.cs" />
+    <Compile Include="Dimensions\InvertedBooleanPlane.cs" />
+    <Compile Include="Dimensions\NameData.cs" />
+    <Compile Include="Dimensions\NamedCartesianPlane.cs" />
+    <Compile Include="Dimensions\PlaneType.cs" />
+    <Compile Include="Dimensions\Point.cs" />
+    <Compile Include="Dimensions\ScalarData.cs" />
+    <Compile Include="Dimensions\Space.cs" />
+    <Compile Include="Dimensions\StringData.cs" />
+    <Compile Include="Dimensions\VectorPlane.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
