@@ -12,9 +12,18 @@ namespace kmeans_test_jbg.Dimensions
     /// </summary>
     public class Space
     {
+        private Centroid [] centroids;
+
+        public Centroid[] Centroids
+        {
+          get { return centroids; }
+          private set { centroids = value; }
+        }
+
         public Space(int clusters)
         {
             Clusters = clusters;
+            Centroids = new Centroid[clusters];
         }
         
         int clusters;
@@ -37,20 +46,33 @@ namespace kmeans_test_jbg.Dimensions
         /// each dimension to create a random Centroid
         /// </summary>
         /// <returns></returns>
-        public Centroid [] GetRandomCentroids()
+        public void CreateRandomCentroids()
         {
-            Centroid[] centroids = new Centroid[this.clusters];
-            int count = 0;
+            // create the empty centroids
             for (int cents = 0; cents < this.clusters; cents++)
             {
-                Centroid c = new Centroid();
-                foreach (Dimension dim in this.dimensions)
-                {
-                    c.AddElement(dim, dim.Plane.GetRandomDataElement());
-                }
-                centroids[count++] = c;
+                Centroids[cents] = new Centroid();
             }
-            return centroids;
+
+            // list of unique data points
+            DataElement [] dataPoints = Dimension.GetUniqueDataElements();
+            Random rand = new Random();
+
+            // assign points to randomly selected centroids
+            foreach (DataElement de in dataPoints)
+            {
+                Centroids[rand.Next(0, this.clusters)].AddElement(de);
+            }
+
+            foreach (Centroid c in Centroids)
+            {
+                Console.WriteLine(c);
+            }
         }
+
+        public void CompareCentroids()
+        {
+        }
+
     }
 }

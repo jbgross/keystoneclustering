@@ -8,14 +8,21 @@ namespace kmeans_test_jbg.Data
 {
     public class Centroid
     {
-        private Hashtable dim_value = new Hashtable();
-        public Centroid()
+        private List<DataElement> elements = new List<DataElement>();
+        int id;
+        public Centroid(int id)
         {
+            this.id = id;
         }
 
-        public void AddElement(Dimension dim, DataElement value)
+        public void AddElement(DataElement de)
         {
-            this.dim_value[dim] = value;
+            this.elements.Add(de);
+        }
+
+        public override string ToString()
+        {
+            return this.id + ": " + decimal
         }
     }
 }

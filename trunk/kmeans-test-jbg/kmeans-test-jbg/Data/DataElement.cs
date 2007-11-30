@@ -6,5 +6,6 @@ namespace kmeans_test_jbg.Data
 {
     public abstract class DataElement
     {
+        public abstract override string ToString();
     }
 }

@@ -33,7 +33,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\IntegerData.cs" />
     <Compile Include="Data\StringData.cs" />
+    <Compile Include="Dimensions\ArtificialDimensions.cs" />
     <Compile Include="Dimensions\Centroid.cs" />
     <Compile Include="Data\DataElement.cs" />
     <Compile Include="Dimensions\Cluster.cs" />
@@ -46,6 +48,11 @@
     <Compile Include="Dimensions\Space.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="test-address.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

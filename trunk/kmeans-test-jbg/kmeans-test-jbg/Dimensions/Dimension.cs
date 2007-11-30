@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Text;
 using kmeans_test_jbg.Data;
 
@@ -12,6 +13,18 @@ namespace kmeans_test_jbg.Dimensions
     /// </summary>
     public class Dimension
     {
+        /// <summary>
+        /// Need all of the data to create centroids
+        /// </summary>
+        private static Hashtable allData = new Hashtable();
+        public static DataElement [] GetUniqueDataElements()
+        {
+            DataElement [] de = new DataElement[Dimension.allData.Keys.Count];
+            Dimension.allData.Keys.CopyTo(de, 0);
+            return de;
+        }
+
+
         public Dimension(String name, DataType data, PlaneType plane)
         {
             Name = name;
@@ -57,10 +70,17 @@ namespace kmeans_test_jbg.Dimensions
 
         public void AddElement(DataElement el)
         {
-            if(this.completed) {
-                this.elements.Add(el);
-            } else {
+            if(this.completed) 
+            {
                 throw new DimensionException("Dimension is closed");
+            }
+            else
+            {
+                this.elements.Add(el);
+                if (Dimension.allData.ContainsKey(el) == false)
+                {
+                    Dimension.allData.Add(el, null);
+                }
             }
         }
 
@@ -69,11 +89,10 @@ namespace kmeans_test_jbg.Dimensions
         /// dimension (no more adds) and sort the dimension to 
         /// speed retrieval.
         /// </summary>
-        /// <param name="?"></param>
         public void Complete()
         {
             this.completed = true;
-            this.elements = this.elements.Sort();
+            this.elements.Sort();
         }
 
         public float[] GetDistances(Centroid centroid)
@@ -92,6 +111,16 @@ namespace kmeans_test_jbg.Dimensions
             return distances;
         }
 
-
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(Name).Append(": ");
+            sb.Append(this.elements.Count);
+            //foreach (DataElement el in this.elements)
+            //{
+            //    sb.Append("\t").Append(el).AppendLine();
+            //}
+            return sb.ToString();
+        }
     }
 }
