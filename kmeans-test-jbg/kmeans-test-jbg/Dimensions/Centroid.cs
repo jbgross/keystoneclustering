@@ -22,7 +22,16 @@ namespace kmeans_test_jbg.Data
 
         public override string ToString()
         {
-            return this.id + ": " + decimal
+            return this.id + ": " + this.elements.Count;
+        }
+
+        public DataElement GetFirstDataElement()
+        {
+            if (this.elements.Count < 1)
+            {
+                throw new DimensionException("No data elements in this Centroid");
+            }
+            return this.elements[0];
         }
     }
 }

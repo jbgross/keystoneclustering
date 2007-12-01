@@ -13,7 +13,6 @@ namespace kmeans_test_jbg.Dimensions
     /// </summary>
     public class InvertedBooleanPlane : DiscretePlane
     {
-        private static Random rand = new Random();
         
         /// <summary>
         /// Get the distance between a Centroid and a DataElement

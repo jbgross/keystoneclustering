@@ -11,6 +11,8 @@ namespace kmeans_test_jbg.Dimensions
     /// </summary>
     public abstract class PlaneType
     {
+        protected static Random rand = new Random();
+
         /// <summary>
         /// This 
         /// </summary>

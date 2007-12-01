@@ -13,6 +13,7 @@ namespace kmeans_test_jbg.Dimensions
     /// </summary>
     public class Dimension
     {
+
         /// <summary>
         /// Need all of the data to create centroids
         /// </summary>
