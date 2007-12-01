@@ -51,7 +51,7 @@ namespace kmeans_test_jbg.Dimensions
             // create the empty centroids
             for (int cents = 0; cents < this.clusters; cents++)
             {
-                Centroids[cents] = new Centroid();
+                Centroids[cents] = new Centroid(cents);
             }
 
             // list of unique data points

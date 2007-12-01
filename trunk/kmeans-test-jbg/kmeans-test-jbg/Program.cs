@@ -13,7 +13,7 @@ namespace kmeans_test_jbg
             //List<DataElement> names = new List<DataElement>();
             //Dimension d1 = new Dimension("message1", new DataType(), new InvertedBooleanPlane());
             ArtificialDimensions ad = new ArtificialDimensions();
-            ad.Space.GetRandomCentroids();
+            ad.Space.CreateRandomCentroids();
             Console.ReadLine();
         }
     }
