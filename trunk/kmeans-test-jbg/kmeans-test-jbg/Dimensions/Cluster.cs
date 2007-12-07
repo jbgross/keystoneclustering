@@ -20,8 +20,10 @@ namespace kmeans_test_jbg.Dimensions
             private set { centroid = value; }
         }
         private Hashtable elements = new Hashtable();
+        
 
-        public Cluster()
+
+        public Cluster(Centroid centroid)
         {
             this.Centroid = centroid;
         }
@@ -30,5 +32,10 @@ namespace kmeans_test_jbg.Dimensions
         {
             this.elements[el] = distance;
         }
+        
+        public int Count {
+            get { return elements.Count; }
+        }
+
     }
 }

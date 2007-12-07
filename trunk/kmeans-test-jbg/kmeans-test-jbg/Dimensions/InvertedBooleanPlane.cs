@@ -24,7 +24,7 @@ namespace kmeans_test_jbg.Dimensions
         /// <returns></returns>
         public override float GetDistance(Centroid centroid, DataElement el)
         {
-            if (el == null)
+            if (centroid.ContainsElement(el))
             {
                 return 1;
             }

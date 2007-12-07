@@ -11,7 +11,7 @@ namespace kmeans_test_jbg.Dimensions
     /// In it, the valid data type is defined, as is the type of plane,
     /// which will lead to a particular distance calculation.
     /// </summary>
-    public class Dimension
+    public class Dimension : DataElement
     {
 
         /// <summary>
@@ -123,5 +123,11 @@ namespace kmeans_test_jbg.Dimensions
             //}
             return sb.ToString();
         }
+
+        public override int CompareTo(object o)
+        {
+            throw new DimensionException("Cannot sort a dimension. Bad programmer.");
+        }
+
     }
 }

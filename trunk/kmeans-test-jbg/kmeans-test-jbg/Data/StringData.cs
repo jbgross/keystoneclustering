@@ -35,5 +35,12 @@ namespace kmeans_test_jbg.Data
             return Data;
         }
 
+        public override int CompareTo(object o)
+        {
+            // this cast is safe, as this will only ever be called
+            // by sort
+            return Data.CompareTo(((StringData) o).Data);
+        }
+
     }
 }
