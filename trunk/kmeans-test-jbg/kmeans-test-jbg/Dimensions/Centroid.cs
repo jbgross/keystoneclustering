@@ -59,7 +59,7 @@ namespace kmeans_test_jbg.Data
         /// <returns></returns>
         public Centroid Average()
         {
-            //START WORKING HERE
+            START WORKING HERE
             return null;
         }
     }

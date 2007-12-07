@@ -14,7 +14,7 @@ namespace kmeans_test_jbg
             //Dimension d1 = new Dimension("message1", new DataType(), new InvertedBooleanPlane());
             ArtificialDimensions ad = new ArtificialDimensions();
             ad.Space.CreateRandomCentroids();
-            //while (ad.Space.CentroidsComplete == false)
+            while (ad.Space.CentroidsComplete == false)
             {
                 ad.Space.CompareCentroids();
             }
