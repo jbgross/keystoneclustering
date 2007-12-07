@@ -34,6 +34,14 @@ namespace kmeans_test_jbg.Dimensions
             private set { clusters = value; }
         }
 
+        private bool centroidsComplete = false;
+
+        public bool CentroidsComplete
+        {
+            get { return centroidsComplete; }
+            private set { centroidsComplete = value; }
+        }
+
         private List<Dimension> dimensions = new List<Dimension>();
 
         public void AddDimension(Dimension dim)
@@ -70,8 +78,58 @@ namespace kmeans_test_jbg.Dimensions
             }
         }
 
+        /// <summary>
+        /// Compare each centroid to each dimension,
+        /// and assign each dimension to the closest centroid
+        /// </summary>
         public void CompareCentroids()
         {
+            // loop through each dimension
+            foreach (Dimension dim in this.dimensions)
+            {
+                Centroid closest = null;
+                float closestCount = 0;
+                
+                // loop through and compare to each centroid
+                // find the closest
+                foreach (Centroid cent in Centroids)
+                {
+                    // get the distances from this centroid to 
+                    // each element in the dimension (will be 
+                    // 0 (not contained) or 1 (contained)
+                    float[] distances = dim.GetDistances(cent);
+
+                    // sum the distances
+                    float total = 0;
+                    foreach (float d in distances)
+                    {
+                        total += d;
+                    }
+
+                    // if this is closer (higher number) than the 
+                    // previous closest centroid, pick this centroid
+                    if (total > closestCount)
+                    {
+                        closest = cent;
+                        closestCount = total;
+                    }
+                }
+
+                // assign this dimension to the closest centroid
+                closest.Cluster.AddDataElement(dim, closestCount);
+            }
+        }
+
+        private Centroid[] GetNewCentroids()
+        {
+            Centroid[] newCents = new Centroid[Clusters];
+            for (int i = 0; i < newCents.Length; i++)
+            {
+                Centroid oldCentroid = Centroids[i];
+                Centroid newCentroid = oldCentroid.Average();
+                newCents[i] = newCentroid;
+            }
+            return newCents;
         }
 
     }

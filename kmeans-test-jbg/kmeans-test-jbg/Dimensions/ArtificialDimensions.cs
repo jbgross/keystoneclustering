@@ -46,7 +46,9 @@ namespace kmeans_test_jbg.Dimensions
                 }
                 space.AddDimension(d1);
                 Console.WriteLine(d1);
+                d1.Complete();
             }
+
         }
     }
 }

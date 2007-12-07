@@ -31,5 +31,11 @@ namespace kmeans_test_jbg.Data
         {
             return "X: " + X + " Y: " + Y;
         }
+
+        public override int CompareTo(object o)
+        {
+            return X.CompareTo(o);
+        }
+
     }
 }
