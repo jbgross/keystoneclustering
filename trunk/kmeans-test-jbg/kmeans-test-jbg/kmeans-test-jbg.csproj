@@ -33,6 +33,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\KMeansCartesian2D.cs" />
     <Compile Include="Data\IntegerData.cs" />
     <Compile Include="Data\Point2D.cs" />
     <Compile Include="Data\Point2DDataElement.cs" />
@@ -41,6 +42,7 @@
     <Compile Include="Dimensions\Cartesian2DPlane.cs" />
     <Compile Include="Dimensions\Centroid.cs" />
     <Compile Include="Data\DataElement.cs" />
+    <Compile Include="Dimensions\Centroid2D.cs" />
     <Compile Include="Dimensions\Cluster.cs" />
     <Compile Include="Dimensions\DecimalPlane.cs" />
     <Compile Include="Dimensions\DimensionException.cs" />
@@ -57,6 +59,9 @@
     <Content Include="test-address.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

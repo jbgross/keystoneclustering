@@ -14,7 +14,11 @@ namespace kmeans_test_jbg.Data
             X = (decimal) r.NextDouble();
             Y = (decimal)r.NextDouble();
         }
-
+        public Point2D(Decimal x, Decimal y)
+        {
+            X = x;
+            Y = y;
+        }
         public decimal Y
         {
             get { return y; }

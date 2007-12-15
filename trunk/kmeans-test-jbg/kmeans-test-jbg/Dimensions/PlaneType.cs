@@ -19,7 +19,7 @@ namespace kmeans_test_jbg.Dimensions
         /// <param name="centroid">The centroid to compare to </param>
         /// <param name="el"></param>
         /// <returns>The square of the Euclidean distance, 0-1, from centroid to element</returns>
-        public abstract float GetDistance(Centroid centroid,  DataElement el);
+        public abstract float GetDistance(Centroid centroid, DataElement el);
 
         public abstract DataElement GetRandomDataElement();
     }
