@@ -14,10 +14,14 @@ namespace kmeans_test_jbg.Dimensions
 
         public override float GetDistance(Centroid centroid, DataElement el)
         {
-            Point2D point = (Point2D) el;
-            Point2D cent = (Point2D) centroid.GetFirstDataElement();
-            float xDist = (float) Math.Abs(point.X - cent.X);
-            float yDist = (float) Math.Abs(point.Y - cent.Y);
+            throw new Exception("Not implemented in abstract dimensions yet.");
+        }
+
+        public virtual float GetDistance(Centroid2D centroid, DataElement el)
+        {
+            Point2D point = (Point2D)el;
+            float xDist = (float)Math.Abs(point.X - centroid.X);
+            float yDist = (float)Math.Abs(point.Y - centroid.Y);
             return xDist * xDist + yDist * yDist;
         }
     }

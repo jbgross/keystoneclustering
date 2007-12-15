@@ -69,6 +69,12 @@ namespace kmeans_test_jbg.Dimensions
         /// </summary>
         private List<DataElement> elements = new List<DataElement>();
 
+        public List<DataElement> Elements
+        {
+            get { return elements; }
+            set { elements = value; }
+        }
+
         public void AddElement(DataElement el)
         {
             if(this.completed) 
@@ -77,7 +83,7 @@ namespace kmeans_test_jbg.Dimensions
             }
             else
             {
-                this.elements.Add(el);
+                this.Elements.Add(el);
                 if (Dimension.allData.ContainsKey(el) == false)
                 {
                     Dimension.allData.Add(el, null);
@@ -93,7 +99,7 @@ namespace kmeans_test_jbg.Dimensions
         public void Complete()
         {
             this.completed = true;
-            this.elements.Sort();
+            this.Elements.Sort();
         }
 
         public float[] GetDistances(Centroid centroid)
@@ -103,9 +109,9 @@ namespace kmeans_test_jbg.Dimensions
                 throw new DimensionException("Dimension is not completed; call Complete().");
             }
 
-            float[] distances = new float[this.elements.Count];
+            float[] distances = new float[this.Elements.Count];
             int count = 0;
-            foreach (DataElement el in this.elements)
+            foreach (DataElement el in this.Elements)
             {
                 distances[count++] = this.Plane.GetDistance(centroid, el);
             }
@@ -116,7 +122,7 @@ namespace kmeans_test_jbg.Dimensions
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(Name).Append(": ");
-            sb.Append(this.elements.Count);
+            sb.Append(this.Elements.Count);
             //foreach (DataElement el in this.elements)
             //{
             //    sb.Append("\t").Append(el).AppendLine();
