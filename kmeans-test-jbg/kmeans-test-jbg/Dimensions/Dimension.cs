@@ -102,6 +102,27 @@ namespace kmeans_test_jbg.Dimensions
             this.Elements.Sort();
         }
 
+        /// <summary>
+        /// Get a list of all data elements
+        /// </summary>
+        /// <param name="centroid"></param>
+        /// <returns></returns>
+
+        /// <summary>
+        /// Get all the data elements
+        /// </summary>
+        /// <returns></returns>
+        public DataElement[] GetDataElements()
+        {
+            DataElement[] des = new DataElement[elements.Count];
+            int count = 0;
+            foreach (DataElement d in elements)
+            {
+                des[count++] = d;
+            }
+            return des;
+        }
+
         public float[] GetDistances(Centroid centroid)
         {
             if(! completed) 

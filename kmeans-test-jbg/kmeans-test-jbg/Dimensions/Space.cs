@@ -13,6 +13,10 @@ namespace kmeans_test_jbg.Dimensions
     public class Space
     {
         private Centroid [] centroids;
+        private Centroid [] oldCentroids;
+
+        //debug
+        int iterations = 0;
 
         public Centroid[] Centroids
         {
@@ -120,16 +124,74 @@ namespace kmeans_test_jbg.Dimensions
             }
         }
 
-        private Centroid[] GetNewCentroids()
+        /// <summary>
+        /// Generate new centroids from averaging prior centroids
+        /// </summary>
+        /// <returns></returns>
+        public void GenerateNewCentroids()
         {
+            // stop if old centroids and new centroids are the same
+            if (this.isFinished())
+            {
+                CentroidsComplete = true;
+                return;
+            }
+
             Centroid[] newCents = new Centroid[Clusters];
             for (int i = 0; i < newCents.Length; i++)
             {
                 Centroid oldCentroid = Centroids[i];
-                Centroid newCentroid = oldCentroid.Average();
+                Centroid newCentroid = oldCentroid.GenerateAverageCentroid();
                 newCents[i] = newCentroid;
             }
-            return newCents;
+            this.oldCentroids = this.Centroids;
+            this.centroids = newCents;
+        }
+
+        /// <summary>
+        /// Check to see if the clusters in the centroids are identical
+        /// If so, return true, else return false
+        /// </summary>
+        /// <returns></returns>
+        private bool isFinished()
+        {
+            // first time through, we won't have old centroids,
+            // so we won't have to check
+            if (this.oldCentroids == null)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < this.centroids.Length; i++)
+            {
+                DataElement [] newMembers = this.centroids[i].Cluster.GetDataElements();
+                DataElement [] oldMembers = this.centroids[i].Cluster.GetDataElements();
+                
+                // if clusters are of different lengths, we
+                // know they must be different, so return false
+                if(newMembers.Length != oldMembers.Length) 
+                {
+                    return false;
+                }
+
+                // loop through and compare each member
+                // may need to worry about sorting at some point
+                // but not now, since the order of the dimension
+                // list won't change
+                for (int j = 0; j < oldMembers.Length; j++)
+                {
+                    DataElement o = oldMembers[j];
+                    DataElement n = newMembers[j];
+                    if (o.ToString().Equals(n.ToString()) == false)
+                    {
+                        return false;
+                    }
+                }
+
+            }
+
+            // if nothing has caused a false so far, then return true
+            return true;
         }
 
     }

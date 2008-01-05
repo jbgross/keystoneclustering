@@ -32,6 +32,21 @@ namespace kmeans_test_jbg.Dimensions
         {
             this.elements[el] = distance;
         }
+
+        /// <summary>
+        /// Get all the data elements
+        /// </summary>
+        /// <returns></returns>
+        public DataElement[] GetDataElements()
+        {
+            DataElement [] des = new DataElement[elements.Count];
+            int count = 0;
+            foreach (DataElement d in elements.Keys) 
+            {
+                des[count++] = d;
+            }
+            return des;
+        }
         
         public int Count {
             get { return elements.Count; }

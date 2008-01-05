@@ -16,13 +16,22 @@ namespace kmeans_test_jbg
             ad.Space.CreateRandomCentroids();
             while (ad.Space.CentroidsComplete == false)
             {
+                // start by comparing centroids to dimensions
                 ad.Space.CompareCentroids();
+
+                // DEBUG - print out centroids
+                Console.WriteLine();
+                foreach (Centroid cent in ad.Space.Centroids)
+                {
+                    Cluster cluster = cent.Cluster;
+                    Console.WriteLine(cluster.Count);
+                }
+
+                // now, get new centroids
+                ad.Space.GenerateNewCentroids();
+
             }
-            foreach (Centroid cent in ad.Space.Centroids)
-            {
-                Cluster cluster = cent.Cluster;
-                Console.WriteLine(cluster.Count);
-            }
+            //DEBUG stop and allow me to read
             Console.ReadLine();
         }
     }
