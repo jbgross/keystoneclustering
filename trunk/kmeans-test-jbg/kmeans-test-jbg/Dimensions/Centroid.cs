@@ -54,13 +54,45 @@ namespace kmeans_test_jbg.Data
 
         /// <summary>
         /// Given the existing centroid and its cluster, 
-        /// find the new centroid via averaging.
+        /// find the new centroid via averaging. 
+        /// Temporarily, this is going to be specific code 
+        /// for email only
         /// </summary>
         /// <returns></returns>
-        public Centroid Average()
+        public Centroid GenerateAverageCentroid()
         {
-            //START WORKING HERE
-            return null;
+            Hashtable guids = new Hashtable();
+            
+            DataElement [] addresses = this.Cluster.GetDataElements();
+            foreach (DataElement d in addresses)
+            {
+                // convert the DE to a dimension (which it will be 
+                // for facet - and the dimension an address)
+                Dimension address = (Dimension)d;
+                DataElement [] des = address.GetDataElements();
+                // loop through each messageid
+                foreach (DataElement messageid in des)
+                {
+                    // if this messageid isn't in the hashtable, add it
+                    if (guids.ContainsKey(messageid) == false)
+                    {
+                        guids.Add(messageid, null);
+                    }
+                }
+
+            }
+
+            // create a new, empty centroid
+            Centroid newCent = new Centroid(this.id);
+
+            // loop through each messageid in hashtable and add t
+            // new centroid
+            foreach (DataElement guid in guids.Keys)
+            {
+                newCent.AddElement(guid);
+            }
+
+            return newCent;
         }
     }
 }
