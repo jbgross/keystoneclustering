@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using kmeans_test_jbg.Dimensions;
-using kmeans_test_jbg.Data;
+using Edu.Psu.Ist.Keystone.Dimensions;
+using Edu.Psu.Ist.Keystone.Data;
 
-namespace kmeans_test_jbg
+namespace Edu.Psu.Ist.Keystone
 {
     class Program
     {
@@ -12,7 +12,7 @@ namespace kmeans_test_jbg
         {
             //List<DataElement> names = new List<DataElement>();
             //Dimension d1 = new Dimension("message1", new DataType(), new InvertedBooleanPlane());
-            ArtificialDimensions ad = new ArtificialDimensions();
+            ArtificialVectors ad = new ArtificialVectors();
             ad.Space.CreateRandomCentroids();
             while (ad.Space.CentroidsComplete == false)
             {

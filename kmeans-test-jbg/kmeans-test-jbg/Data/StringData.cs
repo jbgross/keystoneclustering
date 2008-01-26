@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace kmeans_test_jbg.Data
+namespace Edu.Psu.Ist.Keystone.Data
 {
     /// <summary>
     /// Store a DataElement of String type
