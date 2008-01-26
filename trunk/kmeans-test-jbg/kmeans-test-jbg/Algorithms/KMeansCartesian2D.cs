@@ -1,19 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using kmeans_test_jbg.Data;
-using kmeans_test_jbg.Dimensions;
+using Edu.Psu.Ist.Keystone.Data;
+using Edu.Psu.Ist.Keystone.Dimensions;
 
-namespace kmeans_test_jbg.Algorithms
+namespace Edu.Psu.Ist.Keystone.Algorithms
 {
     class KMeansCartesian2D
     {
         protected List<Centroid2D> centroids;
         protected Int32 numberOfClusters;
         protected Int32 iterations;
-        protected Dimension dimension;
+        protected Vector dimension;
 
-        protected virtual Dimension Dimension
+        protected virtual Vector Dimension
         {
             get { return dimension; }
             set { dimension = value; }
@@ -46,7 +46,7 @@ namespace kmeans_test_jbg.Algorithms
             get { return Dimension.Plane as Cartesian2DPlane; }
         }
 
-        public KMeansCartesian2D(Dimension dimension, Int32 numberOfClusters)
+        public KMeansCartesian2D(Vector dimension, Int32 numberOfClusters)
         {
             Iterations = 0;
             Dimension = dimension;
