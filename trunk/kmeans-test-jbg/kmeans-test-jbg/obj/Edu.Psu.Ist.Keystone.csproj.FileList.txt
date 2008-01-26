@@ -1,0 +1,6 @@
+bin\Debug\test-address.txt
+bin\Debug\kmeans-test-jbg.exe
+bin\Debug\kmeans-test-jbg.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\kmeans-test-jbg.exe
+obj\Debug\kmeans-test-jbg.pdb
