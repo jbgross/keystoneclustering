@@ -26,16 +26,16 @@ namespace Edu.Psu.Ist.Keystone.Dimensions
 
         public Space(int clusters)
         {
-            Clusters = clusters;
+            ClusterCount = clusters;
             Centroids = new Centroid[clusters];
         }
         
-        int clusters;
+        int clusterCount;
 
-        public int Clusters
+        public int ClusterCount
         {
-            get { return clusters; }
-            private set { clusters = value; }
+            get { return clusterCount; }
+            private set { clusterCount = value; }
         }
 
         private bool centroidsComplete = false;
@@ -54,6 +54,21 @@ namespace Edu.Psu.Ist.Keystone.Dimensions
         }
 
         /// <summary>
+        /// Return the current clusters - convenience method
+        /// </summary>
+        /// <returns>current clusters</returns>
+        public Cluster[] GetCurrentClusters()
+        {
+            Cluster[] currentClusters = new Cluster[ClusterCount];
+            for (int i = 0; i < ClusterCount; i++)
+            {
+                currentClusters[i] = Centroids[i].Cluster;
+            }
+            return currentClusters;
+                
+        }
+
+        /// <summary>
         /// Get a Hashtable of DataElements which point to random values for
         /// each dimension to create a random Centroid
         /// </summary>
@@ -61,7 +76,7 @@ namespace Edu.Psu.Ist.Keystone.Dimensions
         public void CreateRandomCentroids()
         {
             // create the empty centroids
-            for (int cents = 0; cents < this.clusters; cents++)
+            for (int cents = 0; cents < this.clusterCount; cents++)
             {
                 Centroids[cents] = new Centroid(cents);
             }
@@ -73,7 +88,7 @@ namespace Edu.Psu.Ist.Keystone.Dimensions
             // assign points to randomly selected centroids
             foreach (DataElement de in dataPoints)
             {
-                Centroids[rand.Next(0, this.clusters)].AddElement(de);
+                Centroids[rand.Next(0, this.clusterCount)].AddElement(de);
             }
 
             foreach (Centroid c in Centroids)
@@ -137,7 +152,7 @@ namespace Edu.Psu.Ist.Keystone.Dimensions
                 return;
             }
 
-            Centroid[] newCents = new Centroid[Clusters];
+            Centroid[] newCents = new Centroid[ClusterCount];
             for (int i = 0; i < newCents.Length; i++)
             {
                 Centroid oldCentroid = Centroids[i];
