@@ -20,37 +20,56 @@ namespace Edu.Psu.Ist.Keystone.Dimensions
             private set { centroid = value; }
         }
         private Hashtable elements = new Hashtable();
-        
-
 
         public Cluster(Centroid centroid)
         {
             this.Centroid = centroid;
         }
 
+        /// <summary>
+        /// Add a data element
+        /// </summary>
+        /// <param name="el">The element to add</param>
+        /// <param name="distance">The distance (score)</param>
         public void AddDataElement(DataElement el, float distance)
         {
             this.elements[el] = distance;
         }
 
         /// <summary>
+        /// Get the distance (score)
+        /// </summary>
+        /// <param name="el">the distance (score)</param>
+        /// <returns></returns>
+        public float GetDistance(DataElement el)
+        {
+            return (float)this.elements[el];
+        }
+
+        /// <summary>
         /// Get all the data elements
         /// </summary>
         /// <returns></returns>
-        public DataElement[] GetDataElements()
+        public List<DataElement> GetDataElements()
         {
-            DataElement [] des = new DataElement[elements.Count];
+            List<DataElement> des = new List<DataElement>();
             int count = 0;
             foreach (DataElement d in elements.Keys) 
             {
-                des[count++] = d;
+                des.Add(d);
             }
             return des;
         }
         
-        public int Count {
+        /// <summary>
+        /// Get the number of elements in the cluster
+        /// </summary>
+        public int Count 
+        {
             get { return elements.Count; }
         }
+
+  
 
     }
 }

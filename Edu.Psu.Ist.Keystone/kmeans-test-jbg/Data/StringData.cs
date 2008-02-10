@@ -42,5 +42,28 @@ namespace Edu.Psu.Ist.Keystone.Data
             return Data.CompareTo(((StringData) o).Data);
         }
 
+        /// <summary>
+        /// Can't believe it took me this long
+        /// Two StringData elements are equal if they contain
+        /// the same string
+        /// JBG
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            StringData sd = (StringData)obj;
+            return Data.Equals(sd.Data);
+        }
+
+        /// <summary>
+        /// Same with hashcode - needs to be identical
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return Data.GetHashCode();
+        }
+
     }
 }

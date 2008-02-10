@@ -79,7 +79,7 @@ namespace Edu.Psu.Ist.Keystone.Dimensions
         {
             if(this.completed) 
             {
-                throw new VectorException("Dimension is closed");
+                throw new VectorException("Vector is closed");
             }
             else
             {
@@ -123,18 +123,23 @@ namespace Edu.Psu.Ist.Keystone.Dimensions
             return des;
         }
 
-        public float[] GetDistances(Centroid centroid)
+        /// <summary>
+        /// Get the distances (scores) for 
+        /// </summary>
+        /// <param name="centroid"></param>
+        /// <returns></returns>
+        public Hashtable GetDistances(Centroid centroid)
         {
             if(! completed) 
             {
                 throw new VectorException("Dimension is not completed; call Complete().");
             }
 
-            float[] distances = new float[this.Elements.Count];
-            int count = 0;
+            Hashtable distances = new Hashtable();
             foreach (DataElement el in this.Elements)
             {
-                distances[count++] = this.Plane.GetDistance(centroid, el);
+                int score = (int) this.Plane.GetDistance(centroid, el);
+                distances[el] = score;
             }
             return distances;
         }
@@ -154,6 +159,22 @@ namespace Edu.Psu.Ist.Keystone.Dimensions
         public override int CompareTo(object o)
         {
             throw new VectorException("Cannot sort a dimension. Bad programmer.");
+        }
+
+        public override bool Equals(object obj)
+        {
+            bool eq = true;
+            if (obj is Vector)
+            {
+                Vector v = (Vector)obj;
+                eq = v.Name.Equals(Name);
+            }
+            else
+            {
+                eq = false;
+            }
+
+            return eq;
         }
 
     }

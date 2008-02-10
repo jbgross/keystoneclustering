@@ -8,7 +8,7 @@ namespace Edu.Psu.Ist.Keystone.Dimensions
 {
     class ArtificialVectors
     {
-        private Space space = new Space(5);
+        private Space space = new Space(5, 20);
 
         public Space Space
         {

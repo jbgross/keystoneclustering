@@ -15,22 +15,20 @@ namespace Edu.Psu.Ist.Keystone.Dimensions
         private Centroid [] centroids;
         private Centroid [] oldCentroids;
 
-        //debug
-        int iterations = 0;
-
         public Centroid[] Centroids
         {
           get { return centroids; }
           private set { centroids = value; }
         }
 
-        public Space(int clusters)
+        public Space(int clusterCount, int clusterSize)
         {
-            ClusterCount = clusters;
-            Centroids = new Centroid[clusters];
+            ClusterCount = clusterCount;
+            Centroids = new Centroid[ClusterCount];
+            this.clusterSize = clusterSize;
         }
         
-        int clusterCount;
+        int clusterCount, clusterSize;
 
         public int ClusterCount
         {
@@ -107,7 +105,8 @@ namespace Edu.Psu.Ist.Keystone.Dimensions
             foreach (Vector dim in this.dimensions)
             {
                 Centroid closest = null;
-                float closestCount = 0;
+                int closestCount = 0;
+                Hashtable closestScores = null;
                 
                 // loop through and compare to each centroid
                 // find the closest
@@ -116,11 +115,11 @@ namespace Edu.Psu.Ist.Keystone.Dimensions
                     // get the distances from this centroid to 
                     // each element in the dimension (will be 
                     // 0 (not contained) or 1 (contained)
-                    float[] distances = dim.GetDistances(cent);
+                    Hashtable distances = dim.GetDistances(cent);
 
                     // sum the distances
-                    float total = 0;
-                    foreach (float d in distances)
+                    int total = 0;
+                    foreach (int d in distances.Values)
                     {
                         total += d;
                     }
@@ -131,11 +130,13 @@ namespace Edu.Psu.Ist.Keystone.Dimensions
                     {
                         closest = cent;
                         closestCount = total;
+                        closestScores = distances;
                     }
                 }
 
                 // assign this dimension to the closest centroid
                 closest.Cluster.AddDataElement(dim, closestCount);
+                closest.UpdateScores(closestScores, closestCount);
             }
         }
 
@@ -152,15 +153,37 @@ namespace Edu.Psu.Ist.Keystone.Dimensions
                 return;
             }
 
+            // create a local copy
+            DataElement[] dataPoints = Vector.GetUniqueDataElements();
+            List<DataElement> allVectorsLeft = new List<DataElement>();
+            foreach(DataElement de in dataPoints) 
+            {
+                allVectorsLeft.Add(de);
+            }
+
             Centroid[] newCents = new Centroid[ClusterCount];
             for (int i = 0; i < newCents.Length; i++)
             {
                 Centroid oldCentroid = Centroids[i];
-                Centroid newCentroid = oldCentroid.GenerateAverageCentroid();
+                // now, changing algorithm
+                Centroid newCentroid = oldCentroid.GenerateModifiedCentroid();
+                foreach (DataElement de in newCentroid.Elements)
+                {
+                    allVectorsLeft.Remove(de);
+                }
                 newCents[i] = newCentroid;
             }
             this.oldCentroids = this.Centroids;
             this.centroids = newCents;
+
+            // now, need to randomly fill from what is left
+            // assign points to randomly selected centroids
+            Random rand = new Random();
+            foreach (DataElement de in allVectorsLeft)
+            {
+                Centroids[rand.Next(0, this.clusterCount)].AddElement(de);
+            }
+
         }
 
         /// <summary>
@@ -179,25 +202,15 @@ namespace Edu.Psu.Ist.Keystone.Dimensions
 
             for (int i = 0; i < this.centroids.Length; i++)
             {
-                DataElement [] newMembers = this.centroids[i].Cluster.GetDataElements();
-                DataElement [] oldMembers = this.centroids[i].Cluster.GetDataElements();
-                
-                // if clusters are of different lengths, we
-                // know they must be different, so return false
-                if(newMembers.Length != oldMembers.Length) 
+                List<DataElement> newMembers = this.centroids[i].Cluster.GetDataElements();
+                List<DataElement> oldMembers = this.oldCentroids[i].Cluster.GetDataElements();
+                //newMembers.Sort();
+                //oldMembers.Sort();
+                List<DataElement> topNewMembers = this.GetTopMembers(newMembers, this.centroids[i].Cluster);
+                List<DataElement> topOldMembers = this.GetTopMembers(newMembers, this.centroids[i].Cluster);
+                foreach (DataElement de in topOldMembers)
                 {
-                    return false;
-                }
-
-                // loop through and compare each member
-                // may need to worry about sorting at some point
-                // but not now, since the order of the dimension
-                // list won't change
-                for (int j = 0; j < oldMembers.Length; j++)
-                {
-                    DataElement o = oldMembers[j];
-                    DataElement n = newMembers[j];
-                    if (o.ToString().Equals(n.ToString()) == false)
+                    if (topNewMembers.Contains(de) == false)
                     {
                         return false;
                     }
@@ -207,6 +220,59 @@ namespace Edu.Psu.Ist.Keystone.Dimensions
 
             // if nothing has caused a false so far, then return true
             return true;
+        }
+
+        /// <summary>
+        /// Get the top N members of a particular cluster, with N set as this.clusterSize
+        /// </summary>
+        /// <param name="members"></param>
+        /// <param name="cluster"></param>
+        /// <returns></returns>
+        public List<DataElement> GetTopMembers(List<DataElement> members, Cluster cluster)
+        {
+            Hashtable highElements = new Hashtable();
+            DataElement lowDe = null;
+            float lowScore = 1000000;
+            foreach (DataElement de in members)
+            {
+                float score = cluster.GetDistance(de);
+                if (highElements.Count < this.clusterSize)
+                {
+                    highElements[de] = score;
+                    if (score < lowScore)
+                    {
+                        lowDe = de;
+                        lowScore = score;
+                    }
+                }
+                else
+                {
+                    // replace the old low
+                    if (score > lowScore)
+                    {
+                        highElements.Remove(lowDe);
+                        highElements[de] = score;
+                    }
+                    // get the new low
+                    lowScore = 100000;
+                    foreach (object o in highElements.Keys)
+                    {
+                        float currScore = (float) highElements[o];
+                        if (currScore < lowScore)
+                        {
+                            lowScore = currScore;
+                            lowDe = (DataElement)o;
+                        }
+                    }
+                }
+            }
+            List<DataElement> highs = new List<DataElement>();
+            IEnumerator keys = highElements.Keys.GetEnumerator();
+            while(keys.MoveNext())
+            {
+                highs.Add((DataElement)keys.Current);
+            }
+            return highs;
         }
 
     }
