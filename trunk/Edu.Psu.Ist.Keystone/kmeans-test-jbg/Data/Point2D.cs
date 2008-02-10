@@ -41,5 +41,15 @@ namespace Edu.Psu.Ist.Keystone.Data
             return X.CompareTo(o);
         }
 
+        public override bool Equals(object obj)
+        {
+            Point2D p = (Point2D)obj;
+            if (p.X.Equals(X) && p.Y.Equals(Y))
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 }

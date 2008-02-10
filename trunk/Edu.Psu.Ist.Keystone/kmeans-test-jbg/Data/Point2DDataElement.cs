@@ -37,5 +37,10 @@ namespace Edu.Psu.Ist.Keystone.Data
             return value.CompareTo(o);
         }
 
+        public override bool Equals(object obj)
+        {
+            return ((Point2DDataElement)obj).Value.Equals(Value);
+        }
+
     }
 }

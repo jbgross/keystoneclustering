@@ -1,6 +1,6 @@
 bin\Debug\test-address.txt
-obj\Debug\ResolveAssemblyReference.cache
 bin\Debug\Edu.Psu.Ist.Keystone.exe
 bin\Debug\Edu.Psu.Ist.Keystone.pdb
+obj\Debug\ResolveAssemblyReference.cache
 obj\Debug\Edu.Psu.Ist.Keystone.exe
 obj\Debug\Edu.Psu.Ist.Keystone.pdb
